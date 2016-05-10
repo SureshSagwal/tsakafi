@@ -121,6 +121,13 @@
 		A8F8C1F01CD2473D00A9D1F7 /* SignupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8F8C1D41CD2473D00A9D1F7 /* SignupView.xib */; };
 		A8F8C1F11CD2473D00A9D1F7 /* TestimonialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F8C1D51CD2473D00A9D1F7 /* TestimonialViewController.swift */; };
 		A8F8C1F21CD2473D00A9D1F7 /* TestimonialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8F8C1D61CD2473D00A9D1F7 /* TestimonialViewController.xib */; };
+		D0DF61CF1CDB8D49002E96AA /* OrderDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF61CD1CDB8D49002E96AA /* OrderDetailTableViewCell.swift */; };
+		D0DF61D01CDB8D49002E96AA /* OrderDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0DF61CE1CDB8D49002E96AA /* OrderDetailTableViewCell.xib */; };
+		D0DF61D21CDC6CBD002E96AA /* libPaymentsSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0DF61D11CDC6CBD002E96AA /* libPaymentsSDK.a */; };
+		D0F7B8711CDB67AE00240046 /* MyOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F7B86F1CDB67AE00240046 /* MyOrdersViewController.swift */; };
+		D0F7B8721CDB67AE00240046 /* MyOrdersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F7B8701CDB67AE00240046 /* MyOrdersViewController.xib */; };
+		D0F7B8751CDB6EE400240046 /* MyOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F7B8731CDB6EE400240046 /* MyOrderTableViewCell.swift */; };
+		D0F7B8761CDB6EE400240046 /* MyOrderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F7B8741CDB6EE400240046 /* MyOrderTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -320,6 +327,18 @@
 		A8F8C1D41CD2473D00A9D1F7 /* SignupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignupView.xib; sourceTree = "<group>"; };
 		A8F8C1D51CD2473D00A9D1F7 /* TestimonialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestimonialViewController.swift; sourceTree = "<group>"; };
 		A8F8C1D61CD2473D00A9D1F7 /* TestimonialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestimonialViewController.xib; sourceTree = "<group>"; };
+		D0DF61CD1CDB8D49002E96AA /* OrderDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailTableViewCell.swift; sourceTree = "<group>"; };
+		D0DF61CE1CDB8D49002E96AA /* OrderDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderDetailTableViewCell.xib; sourceTree = "<group>"; };
+		D0DF61D11CDC6CBD002E96AA /* libPaymentsSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPaymentsSDK.a; sourceTree = "<group>"; };
+		D0DF61D41CDC7C84002E96AA /* PaymentsSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentsSDK.h; sourceTree = "<group>"; };
+		D0DF61D51CDC7C84002E96AA /* PGMerchantConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGMerchantConfiguration.h; sourceTree = "<group>"; };
+		D0DF61D61CDC7C84002E96AA /* PGOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGOrder.h; sourceTree = "<group>"; };
+		D0DF61D71CDC7C84002E96AA /* PGServerEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGServerEnvironment.h; sourceTree = "<group>"; };
+		D0DF61D81CDC7C84002E96AA /* PGTransactionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGTransactionViewController.h; sourceTree = "<group>"; };
+		D0F7B86F1CDB67AE00240046 /* MyOrdersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyOrdersViewController.swift; sourceTree = "<group>"; };
+		D0F7B8701CDB67AE00240046 /* MyOrdersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyOrdersViewController.xib; sourceTree = "<group>"; };
+		D0F7B8731CDB6EE400240046 /* MyOrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyOrderTableViewCell.swift; sourceTree = "<group>"; };
+		D0F7B8741CDB6EE400240046 /* MyOrderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyOrderTableViewCell.xib; sourceTree = "<group>"; };
 		FD7F41C14701B01F223CF669 /* Pods-Tsakafi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tsakafi.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tsakafi/Pods-Tsakafi.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -337,6 +356,7 @@
 				A8F8C06B1CD244C200A9D1F7 /* FBSDKCoreKit.framework in Frameworks */,
 				A8F8C0621CD2449500A9D1F7 /* CoreMotion.framework in Frameworks */,
 				A8F8C0601CD2449100A9D1F7 /* CoreGraphics.framework in Frameworks */,
+				D0DF61D21CDC6CBD002E96AA /* libPaymentsSDK.a in Frameworks */,
 				A8F8C05E1CD2448700A9D1F7 /* MediaPlayer.framework in Frameworks */,
 				A8F8C05C1CD2447F00A9D1F7 /* CoreText.framework in Frameworks */,
 				A8F8C05A1CD2447B00A9D1F7 /* Security.framework in Frameworks */,
@@ -399,6 +419,8 @@
 		A8CB59D51CD242A6008146BE /* Tsakafi */ = {
 			isa = PBXGroup;
 			children = (
+				D0DF61D31CDC7C84002E96AA /* include */,
+				D0DF61D11CDC6CBD002E96AA /* libPaymentsSDK.a */,
 				A8F8C1B91CD2473400A9D1F7 /* LoginView.swift */,
 				A8F8C1BB1CD2473D00A9D1F7 /* AddRateView.swift */,
 				A8F8C1BC1CD2473D00A9D1F7 /* AddRateView.xib */,
@@ -416,6 +438,8 @@
 				A8F8C1C81CD2473D00A9D1F7 /* LoginView.xib */,
 				A8F8C1C91CD2473D00A9D1F7 /* MainView.swift */,
 				A8F8C1CA1CD2473D00A9D1F7 /* MainView.xib */,
+				D0F7B86F1CDB67AE00240046 /* MyOrdersViewController.swift */,
+				D0F7B8701CDB67AE00240046 /* MyOrdersViewController.xib */,
 				A8F8C1CB1CD2473D00A9D1F7 /* ProductDetailView.swift */,
 				A8F8C1CC1CD2473D00A9D1F7 /* ProductDetailView.xib */,
 				A8F8C1CD1CD2473D00A9D1F7 /* ProductView.swift */,
@@ -595,6 +619,10 @@
 				A8F8C1481CD246F300A9D1F7 /* ShadowView.swift */,
 				A8F8C1491CD246F300A9D1F7 /* TestimonialTableViewCell.swift */,
 				A8F8C14A1CD246F300A9D1F7 /* TestimonialTableViewCell.xib */,
+				D0F7B8731CDB6EE400240046 /* MyOrderTableViewCell.swift */,
+				D0F7B8741CDB6EE400240046 /* MyOrderTableViewCell.xib */,
+				D0DF61CD1CDB8D49002E96AA /* OrderDetailTableViewCell.swift */,
+				D0DF61CE1CDB8D49002E96AA /* OrderDetailTableViewCell.xib */,
 			);
 			path = Customcells;
 			sourceTree = "<group>";
@@ -672,6 +700,18 @@
 			path = Requests;
 			sourceTree = "<group>";
 		};
+		D0DF61D31CDC7C84002E96AA /* include */ = {
+			isa = PBXGroup;
+			children = (
+				D0DF61D41CDC7C84002E96AA /* PaymentsSDK.h */,
+				D0DF61D51CDC7C84002E96AA /* PGMerchantConfiguration.h */,
+				D0DF61D61CDC7C84002E96AA /* PGOrder.h */,
+				D0DF61D71CDC7C84002E96AA /* PGServerEnvironment.h */,
+				D0DF61D81CDC7C84002E96AA /* PGTransactionViewController.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -707,6 +747,7 @@
 				TargetAttributes = {
 					A8CB59D21CD242A6008146BE = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = TG94M5783M;
 					};
 				};
 			};
@@ -741,9 +782,12 @@
 				A8F8C1F01CD2473D00A9D1F7 /* SignupView.xib in Resources */,
 				A8F8C1EA1CD2473D00A9D1F7 /* ProductView.xib in Resources */,
 				A8F8C1E81CD2473D00A9D1F7 /* ProductDetailView.xib in Resources */,
+				D0F7B8721CDB67AE00240046 /* MyOrdersViewController.xib in Resources */,
 				A8F8C1341CD246AA00A9D1F7 /* about_us.html in Resources */,
 				A8F8C1DF1CD2473D00A9D1F7 /* CheckOutView.xib in Resources */,
 				A8F8C1371CD246AA00A9D1F7 /* testimonials.html in Resources */,
+				D0F7B8761CDB6EE400240046 /* MyOrderTableViewCell.xib in Resources */,
+				D0DF61D01CDB8D49002E96AA /* OrderDetailTableViewCell.xib in Resources */,
 				A8CB59E11CD242A6008146BE /* LaunchScreen.storyboard in Resources */,
 				A8F8C1231CD2462A00A9D1F7 /* rsa.h.bak in Resources */,
 				A8F8C1861CD246F300A9D1F7 /* CustomCell.xib in Resources */,
@@ -838,6 +882,7 @@
 				A8F8C1E01CD2473D00A9D1F7 /* FaqView.swift in Sources */,
 				A8F8C1821CD246F300A9D1F7 /* LoginCredentials.swift in Sources */,
 				A8F8C1AD1CD246F400A9D1F7 /* FetchRatingRequest.swift in Sources */,
+				D0F7B8711CDB67AE00240046 /* MyOrdersViewController.swift in Sources */,
 				A8F8C1B21CD246F400A9D1F7 /* RatingRequest.swift in Sources */,
 				A8F8C18A1CD246F300A9D1F7 /* CAPSPageMenu.swift in Sources */,
 				A8F8C18B1CD246F300A9D1F7 /* FloatRatingView.swift in Sources */,
@@ -871,6 +916,7 @@
 				A8F8C1841CD246F300A9D1F7 /* UserDefaults.swift in Sources */,
 				A8F8C1F11CD2473D00A9D1F7 /* TestimonialViewController.swift in Sources */,
 				A8F8C18C1CD246F300A9D1F7 /* Resizer.swift in Sources */,
+				D0DF61CF1CDB8D49002E96AA /* OrderDetailTableViewCell.swift in Sources */,
 				A8F8C1981CD246F300A9D1F7 /* Coupon.swift in Sources */,
 				A8F8C1BA1CD2473400A9D1F7 /* LoginView.swift in Sources */,
 				A8F8C18F1CD246F300A9D1F7 /* CategroyTable.swift in Sources */,
@@ -886,6 +932,7 @@
 				A8F8C1AF1CD246F400A9D1F7 /* LoginRequest.swift in Sources */,
 				A8F8C17E1CD246F300A9D1F7 /* Constant.swift in Sources */,
 				A8F8C1941CD246F300A9D1F7 /* SuperTable.swift in Sources */,
+				D0F7B8751CDB6EE400240046 /* MyOrderTableViewCell.swift in Sources */,
 				A8F8C1AB1CD246F300A9D1F7 /* CouponRequest.swift in Sources */,
 				A8F8C1A61CD246F300A9D1F7 /* UpdateProfileSecond.swift in Sources */,
 				A8F8C1E21CD2473D00A9D1F7 /* ForgetPasswordView.swift in Sources */,
@@ -925,8 +972,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ADDENDUM SALES PVT LTD. (TG94M5783M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ADDENDUM SALES PVT LTD. (TG94M5783M)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gv Shashidhar (78T68F6P65)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gv Shashidhar (78T68F6P65)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -948,7 +995,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "7d246cae-f1a8-431f-9363-880bde70d955";
+				PROVISIONING_PROFILE = "112f6efb-f36e-4d0a-abac-520c13f326ca";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -972,8 +1019,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ADDENDUM SALES PVT LTD. (TG94M5783M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ADDENDUM SALES PVT LTD. (TG94M5783M)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gv Shashidhar (78T68F6P65)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gv Shashidhar (78T68F6P65)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -988,7 +1035,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "7d246cae-f1a8-431f-9363-880bde70d955";
+				PROVISIONING_PROFILE = "112f6efb-f36e-4d0a-abac-520c13f326ca";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1000,8 +1047,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ADDENDUM SALES PVT LTD. (TG94M5783M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ADDENDUM SALES PVT LTD. (TG94M5783M)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1032,7 +1079,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tsakafi.eweblabs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7d246cae-f1a8-431f-9363-880bde70d955";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tsakafi/Tsakafi-Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/openssl/include";
 			};
@@ -1044,7 +1091,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ADDENDUM SALES PVT LTD. (TG94M5783M)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1075,7 +1123,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tsakafi.eweblabs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7d246cae-f1a8-431f-9363-880bde70d955";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tsakafi/Tsakafi-Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/openssl/include";
 			};
