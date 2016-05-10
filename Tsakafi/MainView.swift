@@ -147,11 +147,18 @@ class MainView: UIViewController {
             userPhoneLabel.hidden = false
             welcomeLabel.hidden = true
             label1.text = "Change Password"
+            sideSubView2.frame = CGRectMake(sideSubView2.frame.origin.x, sideSubView2.frame.origin.y, sideSubView2.frame.size.width, 100)
+            sideSubView1.frame = CGRectMake(sideSubView1.frame.origin.x, 257, sideSubView1.frame.size.width, sideSubView1.frame.size.height)
+            
+            sideScrollView.contentSize = CGSizeMake(0, 950)
             image7.hidden = false
             label7.hidden = false
         } else {
             label1.text = "Login"
             image1.image = UIImage(named: "person")
+            sideSubView2.frame = CGRectMake(sideSubView2.frame.origin.x, sideSubView2.frame.origin.y, sideSubView2.frame.size.width, 50)
+            sideSubView1.frame = CGRectMake(sideSubView1.frame.origin.x, 207, sideSubView1.frame.size.width, sideSubView1.frame.size.height)
+            sideScrollView.contentSize = CGSizeMake(0, 850)
             GIDSignIn.sharedInstance().signOut()
             welcomeLabel.hidden = false
             image7.hidden = true
@@ -310,7 +317,14 @@ class MainView: UIViewController {
                 self.navigationController?.pushViewController(viewController, animated: true)
             }
             hideSideMenu()
-        } else if(button.tag == 1) {
+        }
+        else if(button.tag == -1) {
+            removeChildController()
+            let viewController = MyOrdersViewController()
+            self.navigationController?.pushViewController(viewController, animated: true)
+            hideSideMenu()
+        }
+        else if(button.tag == 1) {
             removeChildController()
             let viewController = ProductView(nibName: "ProductView", bundle: nil)
             self.navigationController?.pushViewController(viewController, animated: true)
@@ -724,7 +738,16 @@ extension MainView : NSURLConnectionDelegate {
                         let categroyTabl = CategroyTable()
                         categroyTabl.insertCategroy(category)
                     }
-                    UserDefaults.bannerArray = JsonSerialization.getJsonString(array: categories.result["banners"] as! [[String: AnyObject]])
+                    
+                    if let jsonString: String = JsonSerialization.getJsonString(array: categories.result["banners"] as! [[String: AnyObject]])
+                    {
+                        UserDefaults.bannerArray = jsonString
+                    }
+                    else
+                    {
+                        UserDefaults.bannerArray = ""
+                    }
+                    
                     isFirstCompleted = true
                     if isSecondCompleted {
                         stopTasks(showToast: false, message: "")

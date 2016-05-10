@@ -28,6 +28,12 @@ class CheckOutView: UIViewController {
     @IBOutlet var stateText: UITextField!
     @IBOutlet var countryText: UITextField!
     @IBOutlet var myScrollView: UIScrollView!
+    
+    @IBOutlet var PayUsingView: UIView!
+    @IBOutlet var paytmBtn: UIButton!
+    @IBOutlet var ccAvenueBtn: UIButton!
+    @IBOutlet var shadowImageView: UIImageView!
+    
     var totalAmount: Float = 0.00
     var restAmount: Float = 0.00
     var couponData: NSMutableData!
@@ -68,12 +74,151 @@ class CheckOutView: UIViewController {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
+    // MARK: UIButton Actions
+    
     @IBAction func backAction() {
         self.navigationController?.popViewControllerAnimated(true)
     }
     
     @IBAction func webViewBackAction() {
         webContainerView.removeFromSuperview()
+    }
+    
+    @IBAction func paytmBtnAction() {
+        
+        paytmBtn.selected = true
+        ccAvenueBtn.selected = false
+        self.hidePayUsingViewAction()
+        self.saveBillingAddressAPICall()
+    }
+    
+    @IBAction func ccAvenueBtnAction() {
+        
+        paytmBtn.selected = false
+        ccAvenueBtn.selected = true
+        self.hidePayUsingViewAction()
+        self.saveBillingAddressAPICall()
+    }
+    
+    @IBAction func shadowImageViewTouchAction() {
+        
+        self.hidePayUsingViewAction()
+    }
+    
+    @IBAction func saveBillingAddress() {
+        
+        if !Reachability.isConnectedToNetwork() {
+            stopTasks(showToast: true, message: NetworkConnectionErrorMessage)
+            return
+        }
+        if nameText.text == "" || emailText.text == "" || mobileText.text == "" || pincodeText.text == "" || addressText.text == "" || cityText.text == "" || stateText.text == "" || countryText.text == "" {
+            stopTasks(showToast: true, message: "Please fill all details.")
+            return
+        }
+        if !Access.isValidEmail(emailText.text!) {
+            stopTasks(showToast: true, message: "Email is not valid.")
+            return
+        }
+        
+        self.showPayUsingViewAction()
+    }
+    
+    @IBAction func getCouponInBG() {
+        resingFields()
+        startTasks()
+        if !Reachability.isConnectedToNetwork() {
+            stopTasks(showToast: true, message: NetworkConnectionErrorMessage)
+            return
+        }
+        if couponText.text == "" {
+            stopTasks(showToast: true, message: "Please enter coupon code")
+            return
+        }
+        let couponRequest = CouponRequest()
+        couponRequest.couponCode = couponText.text!
+        let urlConnections = UrlConnections()
+        couponData = NSMutableData()
+        couponConnection = urlConnections.getCouponRequest(self, couponRequest: couponRequest)
+    }
+    
+    //MARK: Local Actions
+    
+    func saveBillingAddressAPICall()
+    {
+        startTasks()
+        let randomNumber = (arc4random() % 9999999) + 1;
+        orderId = String(randomNumber)
+        var productId = ""
+        var productName = ""
+        var quantity = ""
+        var weight = ""
+        var price = ""
+        for product in cartProductArray {
+            let productJson = JsonSerialization.getDictionaryFromJsonString(dictString: product["productJson"] as! String)
+            let productWeightUnit = JsonSerialization.getDictionaryFromJsonString(dictString: product["productWeightUnit"] as! String)
+            productId = productId + (product["id"] as! String) + "#"
+            productName = productName + (productJson["name"] as! String) + "#"
+            quantity = quantity + (product["productQuantity"] as! String) + "#"
+            weight = weight + (productWeightUnit["weight"] as! String) + "#"
+            price = price + (productWeightUnit["price"] as! String) + "#"
+        }
+        let billingAddRequest = BillingAddRequest()
+        billingAddRequest.userId = LoginCredentials.userId
+        billingAddRequest.orderId = orderId
+        billingAddRequest.productId = productId
+        billingAddRequest.productName = productName
+        billingAddRequest.quantity = quantity
+        billingAddRequest.weight = weight
+        billingAddRequest.price = price
+        billingAddRequest.phone = mobileText.text!
+        billingAddRequest.houseNo = addressText.text!
+        billingAddRequest.street = addressText.text!
+        billingAddRequest.locality = cityText.text!
+        billingAddRequest.city = cityText.text!
+        billingAddRequest.state = stateText.text!
+        billingAddRequest.country = countryText.text!
+        billingAddRequest.discount = String(format:"%.0f",round(totalAmount - restAmount))
+        billingAddRequest.couponCode = couponText.text!
+        let urlConnections = UrlConnections()
+        saveBillingAddData = NSMutableData()
+        saveBillingAddConnection = urlConnections.getBillingAddRequest(self, billingAddRequest: billingAddRequest)
+    }
+    
+    func showPayUsingViewAction()
+    {
+        PayUsingView.alpha = 0.0
+        shadowImageView.alpha = 0.0
+        PayUsingView.hidden = false
+        shadowImageView.hidden = false
+        
+        UIView.animateWithDuration(0.15, animations: {
+            
+            self.shadowImageView.alpha = 0.5
+            
+            }) { (true) in
+                
+                UIView.animateWithDuration(0.35, animations: {
+                    
+                    self.PayUsingView.alpha = 1.0
+                    
+                    }, completion: { (true) in
+                        
+                        
+                })
+        }
+    }
+    
+    func hidePayUsingViewAction()
+    {
+        UIView.animateWithDuration(0.45, animations: {
+            self.PayUsingView.alpha = 0.0
+            self.shadowImageView.alpha = 0.0
+            
+        }) { (true) in
+            
+            self.PayUsingView.hidden = true
+            self.shadowImageView.hidden = true
+        }
     }
     
     func stopTasks(showToast toast:Bool, message messageString: String) {
@@ -90,7 +235,57 @@ class CheckOutView: UIViewController {
         self.view.makeToastActivity()
     }
     
+    func payUsingPaytmAction()
+    {
+        //Step 1: Create a default merchant config object
+        let mc: PGMerchantConfiguration = PGMerchantConfiguration.defaultConfiguration()
+        
+        //Step 2: If you have your own checksum generation and validation url set this here. Otherwise use the default Paytm urls
+        
+        mc.checksumGenerationURL = "http://paytm.tsakafi.com/generateChecksum.php"
+        mc.checksumValidationURL = "http://paytm.tsakafi.com/verifyChecksum.php"
+        
+        //Step 3: Create the order with whatever params you want to add. But make sure that you include the merchant mandatory params
+        
+        var orderDict: [String : String] = [ : ]
+        
+        orderDict["MID"] = "Addend77797624662758"
+        //Merchant configuration in the order object
+        orderDict["CHANNEL_ID"] = "WAP"
+        orderDict["INDUSTRY_TYPE_ID"] = "Retail120"
+        orderDict["WEBSITE"] = "Addendumwap"
+        //Order configuration in the order object
+        let amount: Float = round(restAmount)
+        orderDict["TXN_AMOUNT"] = String(format:"%.02f",amount)
+        orderDict["ORDER_ID"] = self.orderId
+//        orderDict["REQUEST_TYPE"] = "DEFAULT"
+        orderDict["CUST_ID"] = LoginCredentials.userId
+        
+        orderDict["MOBILE_NO"] = mobileText.text!
+        orderDict["EMAIL"] = emailText.text!
+        orderDict["THEME"] = "merchant"
+        orderDict["CALLBACK_URL"] = "http://paytm.tsakafi.com/verifyChecksum.php"
+        
+        print("orderdict :\(orderDict)");
+        let order: PGOrder = PGOrder(params: orderDict)
+        
+        //Step 4: Choose the PG server. In your production build dont call selectServerDialog. Just create a instance of the
+        //PGTransactionViewController and set the serverType to eServerTypeProduction
+//        PGServerEnvironment.selectServerDialog(self.view, completionHandler: {(type: ServerType) -> Void in
+//            
+//            
+//        })
+        
+        let txnController = PGTransactionViewController.init(transactionForOrder: order)
+        
+        txnController.serverType = eServerTypeProduction
+        txnController.merchant = mc
+        txnController.delegate = self
+        self.showController(txnController)
+    }
+    
     func proceedToPaymentAction() {
+        
         let urlString = "https://secure.ccavenue.com/transaction/initTrans"
         let merchantId = "78316"
         let accessCode = "AVXJ07CL94BH63JXHB"
@@ -133,74 +328,98 @@ class CheckOutView: UIViewController {
         webView.hidden = false
     }
     
-    @IBAction func saveBillingAddress() {
-        startTasks()
-        if !Reachability.isConnectedToNetwork() {
-            stopTasks(showToast: true, message: NetworkConnectionErrorMessage)
-            return
+    //MARK: Paytm Controller Actions
+    
+    func showController(controller: PGTransactionViewController) {
+        
+        if self.navigationController != nil {
+            self.navigationController!.pushViewController(controller, animated: true)
         }
-        if nameText.text == "" || emailText.text == "" || mobileText.text == "" || pincodeText.text == "" || addressText.text == "" || cityText.text == "" || stateText.text == "" || countryText.text == "" {
-            stopTasks(showToast: true, message: "Please fill all details.")
-            return
+        else {
+            self.presentViewController(controller, animated: true, completion: {() -> Void in
+            })
         }
-        if !Access.isValidEmail(emailText.text!) {
-            stopTasks(showToast: true, message: "Email is not valid.")
-            return
-        }
-        let randomNumber = (arc4random() % 9999999) + 1;
-        orderId = String(randomNumber)
-        var productId = ""
-        var productName = ""
-        var quantity = ""
-        var weight = ""
-        var price = ""
-        for product in cartProductArray {
-            let productJson = JsonSerialization.getDictionaryFromJsonString(dictString: product["productJson"] as! String)
-            let productWeightUnit = JsonSerialization.getDictionaryFromJsonString(dictString: product["productWeightUnit"] as! String)
-            productId = productId + (product["id"] as! String) + "#"
-            productName = productName + (productJson["name"] as! String) + "#"
-            quantity = quantity + (product["productQuantity"] as! String) + "#"
-            weight = weight + (productWeightUnit["weight"] as! String) + "#"
-            price = price + (productWeightUnit["price"] as! String) + "#"
-        }
-        let billingAddRequest = BillingAddRequest()
-        billingAddRequest.userId = LoginCredentials.userId
-        billingAddRequest.orderId = orderId
-        billingAddRequest.productId = productId
-        billingAddRequest.productName = productName
-        billingAddRequest.quantity = quantity
-        billingAddRequest.weight = weight
-        billingAddRequest.price = price
-        billingAddRequest.phone = mobileText.text!
-        billingAddRequest.houseNo = addressText.text!
-        billingAddRequest.street = addressText.text!
-        billingAddRequest.locality = cityText.text!
-        billingAddRequest.city = cityText.text!
-        billingAddRequest.state = stateText.text!
-        billingAddRequest.country = countryText.text!
-        billingAddRequest.discount = String(format:"%.0f",round(totalAmount - restAmount))
-        billingAddRequest.couponCode = couponText.text!
-        let urlConnections = UrlConnections()
-        saveBillingAddData = NSMutableData()
-        saveBillingAddConnection = urlConnections.getBillingAddRequest(self, billingAddRequest: billingAddRequest)
     }
     
-    @IBAction func getCouponInBG() {
-        resingFields()
-        startTasks()
-        if !Reachability.isConnectedToNetwork() {
-            stopTasks(showToast: true, message: NetworkConnectionErrorMessage)
-            return
+    func removeController(controller: PGTransactionViewController) {
+        if self.navigationController != nil {
+            self.navigationController!.popViewControllerAnimated(true)
         }
-        if couponText.text == "" {
-            stopTasks(showToast: true, message: "Please enter coupon code")
-            return
+        else {
+            controller.dismissViewControllerAnimated(true, completion: {() -> Void in
+            })
         }
-        let couponRequest = CouponRequest()
-        couponRequest.couponCode = couponText.text!
-        let urlConnections = UrlConnections()
-        couponData = NSMutableData()
-        couponConnection = urlConnections.getCouponRequest(self, couponRequest: couponRequest)
+    }
+    
+}
+
+extension CheckOutView : PGTransactionDelegate
+{
+    // MARK: Delegate methods of Payment SDK.
+    func didSucceedTransaction(controller: PGTransactionViewController, response: [NSObject : AnyObject]) {
+        
+        // After Successful Payment
+        
+        print("ViewController::didSucceedTransactionresponse= %@", response)
+        let msg: String = "Thank you for your order, order successful !"
+        
+        AppDelegate.getAppDelegate().window?.makeToast(message: msg)
+        
+        let cartTable = CartTable()
+        cartTable.deleteCartTable()
+        
+        self.removeController(controller)
+        
+        self.navigationController?.popToRootViewControllerAnimated(true)
+        
+    }
+    
+    func didFailTransaction(controller: PGTransactionViewController, error: NSError, response: [NSObject : AnyObject]) {
+        // Called when Transation is Failed
+        print("ViewController::didFailTransaction error = %@ response= %@", error, response)
+        
+        if response.count == 0 {
+            
+//            self.function.alert_for(error.localizedDescription, message: response.description)
+            AppDelegate.getAppDelegate().window?.makeToast(message: response.description)
+            
+        }
+        else if error != 0 {
+            
+//            self.function.alert_for("Error", message: error.localizedDescription)
+            AppDelegate.getAppDelegate().window?.makeToast(message: error.localizedDescription)
+            
+        }
+        
+        self.removeController(controller)
+        
+    }
+    
+    func didCancelTransaction(controller: PGTransactionViewController, error: NSError, response: [NSObject : AnyObject]) {
+        
+        //Cal when Process is Canceled
+        var msg: String? = nil
+        
+        if error != 0 {
+            
+            msg = String(format: "Successful")
+        }
+        else {
+            msg = String(format: "UnSuccessful")
+        }
+        
+        
+//        self.function.alert_for("Transaction Cancel", message: msg!)
+        
+        AppDelegate.getAppDelegate().window?.makeToast(message: msg!)
+        self.removeController(controller)
+        
+    }
+    
+    func didFinishCASTransaction(controller: PGTransactionViewController, response: [NSObject : AnyObject]) {
+        
+        print("ViewController::didFinishCASTransaction:response = %@", response);
+        
     }
 }
 
@@ -210,7 +429,7 @@ extension CheckOutView: UIWebViewDelegate {
         if string?.rangeOfString("redirectUrl") != nil {
             print("redirectUrl :\(string)")
             
-            stopTasks(showToast: true, message: "Order placed successfully !")
+            AppDelegate.getAppDelegate().window?.makeToast(message: "Thank you for your order, order successful !")
             let cartTable = CartTable()
             cartTable.deleteCartTable()
             self.navigationController?.popToRootViewControllerAnimated(true)
@@ -308,12 +527,22 @@ extension CheckOutView : NSURLConnectionDelegate {
                 let billingAddress: BillingAddress = BillingAddress(rowData: saveBillingAddData)
                 if (billingAddress.success == true) {
                     self.view.makeToast(message: "Billing address saved successfully.")
-                    webContainerView.frame = CGRectMake(0, 0, AppDelegate.getAppDelegate().window!.frame.size.width, AppDelegate.getAppDelegate().window!.frame.size.height)
-                    self.view.addSubview(webContainerView)
-                    webView.delegate = self
-                    webView.scalesPageToFit = true
+                    
                     orderId = String(billingAddress.result["orderId"] as! Int)
-                    NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "proceedToPaymentAction", userInfo: nil, repeats: false)
+                    
+                    if paytmBtn.selected == true
+                    {
+                        self.payUsingPaytmAction()
+                    }
+                    else
+                    {
+                        webContainerView.frame = CGRectMake(0, 0, AppDelegate.getAppDelegate().window!.frame.size.width, AppDelegate.getAppDelegate().window!.frame.size.height)
+                        self.view.addSubview(webContainerView)
+                        webView.delegate = self
+                        webView.scalesPageToFit = true
+                        NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "proceedToPaymentAction", userInfo: nil, repeats: false)
+                    }
+                    
                 } else {
                     stopTasks(showToast: true, message: NetworkConnectionErrorMessage)
                 }

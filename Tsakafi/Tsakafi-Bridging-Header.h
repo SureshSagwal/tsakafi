@@ -18,3 +18,5 @@
 #import "Database.h"
 #import "CCTool.h"
 #import <Google/SignIn.h>
+
+#import "PaymentsSDK.h"

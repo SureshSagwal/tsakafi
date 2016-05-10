@@ -309,7 +309,7 @@ extension ProductView : CAPSPageMenuDelegate {
             controllerArray.append(controller)
         }
         if DeviceType.IS_IPHONE_6P {
-            pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 0.0, self.view.frame.width, 40), pageMenuOptions: parameters)
+            pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 64.0, self.view.frame.width, 40), pageMenuOptions: parameters)
         } else {
             pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 64.0, self.view.frame.width,40), pageMenuOptions: parameters)
         }

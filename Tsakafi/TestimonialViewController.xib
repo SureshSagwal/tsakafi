@@ -10,7 +10,7 @@
         </mutableArray>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TestimonialViewController" customModule="Coffee" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TestimonialViewController" customModule="Tsakafi" customModuleProvider="target">
             <connections>
                 <outlet property="sideOverView" destination="yR4-Et-IKI" id="W8z-sT-t2A"/>
                 <outlet property="testimonialTblView" destination="382-sc-TZ9" id="wXq-nP-Pst"/>
