@@ -19,6 +19,46 @@ class BillingAddRequest: NSObject {
         }
     }
     
+    private var userNameString: String = ""
+    var email: String {
+        get {
+            return userNameString
+        }
+        set {
+            userNameString = newValue
+        }
+    }
+    
+    private var emailString: String = ""
+    var userName: String {
+        get {
+            return emailString
+        }
+        set {
+            emailString = newValue
+        }
+    }
+    
+    private var pincodeString: String = ""
+    var pincode: String {
+        get {
+            return pincodeString
+        }
+        set {
+            pincodeString = newValue
+        }
+    }
+    
+    private var addressString: String = ""
+    var address: String {
+        get {
+            return addressString
+        }
+        set {
+            addressString = newValue
+        }
+    }
+    
     private var orderIdString: String = ""
     var orderId: String {
         get {
@@ -172,6 +212,8 @@ class BillingAddRequest: NSObject {
     func getBillingAddRequestObject() -> Dictionary<String,AnyObject>  {
         var formData = Dictionary<String,AnyObject> ()
         formData["userId"] = userId
+        formData["name"] = userName
+        formData["email"] = email
         formData["order_id"] = orderId
         formData["prdoct_id"] = productId
         formData["product_name"] = productName
@@ -185,6 +227,8 @@ class BillingAddRequest: NSObject {
         formData["city"] = city
         formData["state"] = state
         formData["country"] = country
+        formData["address"] = address
+        formData["pin_code"] = pincode
         formData["discount"] = discount
         formData["coupon_code"] = couponCode
         return formData

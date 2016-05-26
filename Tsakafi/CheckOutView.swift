@@ -164,6 +164,8 @@ class CheckOutView: UIViewController {
         }
         let billingAddRequest = BillingAddRequest()
         billingAddRequest.userId = LoginCredentials.userId
+        billingAddRequest.userName = nameText.text!
+        billingAddRequest.email = emailText.text!
         billingAddRequest.orderId = orderId
         billingAddRequest.productId = productId
         billingAddRequest.productName = productName
@@ -171,6 +173,10 @@ class CheckOutView: UIViewController {
         billingAddRequest.weight = weight
         billingAddRequest.price = price
         billingAddRequest.phone = mobileText.text!
+        
+        billingAddRequest.pincode = pincodeText.text!
+        billingAddRequest.address = addressText.text!
+        
         billingAddRequest.houseNo = addressText.text!
         billingAddRequest.street = addressText.text!
         billingAddRequest.locality = cityText.text!
